@@ -3,7 +3,7 @@ document.getElementById("submitButton").addEventListener("click", onClick);
 
 function fetchFromCrudCrud() {
   axios
-    .get("https://crudcrud.com/api/30e8e1f7f1e44b4fbd3be66fd64f60a5/BookingApp")
+    .get("https://crudcrud.com/api/74827baff72b440eb2cb24d23b4edba0/BookingApp")
     .then((obj) => {
       let userData = obj.data;
       userData.forEach((data) => displayNewRegristrationData(data));
@@ -23,7 +23,7 @@ function onClick() {
 
   axios
     .post(
-      "https://crudcrud.com/api/30e8e1f7f1e44b4fbd3be66fd64f60a5/BookingApp",
+      "https://crudcrud.com/api/74827baff72b440eb2cb24d23b4edba0/BookingApp/",
       userDetails
     )
     .then((obj) => displayNewRegristrationData(obj.data))
@@ -42,6 +42,18 @@ function displayNewRegristrationData(obj) {
   let btnEdit = document.createElement("input");
   btnEdit.value = "Edit";
   btnEdit.type = "button";
+  btnEdit.onclick = () => {
+    document.getElementById("userName").value = obj["name"];
+    document.getElementById("emailID").value = obj["email"];
+    document.getElementById("mobile").value = obj["mobile"];
+    listItems.removeChild(node);
+    axios
+      .delete(
+        `https://crudcrud.com/api/74827baff72b440eb2cb24d23b4edba0/BookingApp/${obj["_id"]}`
+      )
+      .catch((err) => console.log(err));
+    document.getElementById("submitButton").addEventListener("click", onClick);
+  };
 
   let btnDelete = document.createElement("input");
   btnDelete.value = "Delete";
@@ -49,7 +61,7 @@ function displayNewRegristrationData(obj) {
   btnDelete.onclick = () => {
     axios
       .delete(
-        `https://crudcrud.com/api/30e8e1f7f1e44b4fbd3be66fd64f60a5/BookingApp/${obj["_id"]}`
+        `https://crudcrud.com/api/74827baff72b440eb2cb24d23b4edba0/BookingApp/${obj["_id"]}`
       )
       .catch((err) => console.log(err));
     listItems.removeChild(node);
