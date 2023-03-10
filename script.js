@@ -46,6 +46,14 @@ function displayNewRegristrationData(obj) {
   let btnDelete = document.createElement("input");
   btnDelete.value = "Delete";
   btnDelete.type = "button";
+  btnDelete.onclick = () => {
+    axios
+      .delete(
+        `https://crudcrud.com/api/30e8e1f7f1e44b4fbd3be66fd64f60a5/BookingApp/${obj["_id"]}`
+      )
+      .catch((err) => console.log(err));
+    listItems.removeChild(node);
+  };
 
   node.appendChild(text);
   node.appendChild(btnEdit);
